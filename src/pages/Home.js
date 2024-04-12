@@ -10,10 +10,8 @@ function Home() {
       <div className='h-[92vh] banner w-full flex justify-center overflow-scroll'>
         <div className='w-1/2'></div>
         <div className='w-1/2 flex flex-col justify-center items-center gap-4'>
-          <Link to='userlogin' className='w-3/4 border orange p-2 rounded-md items-center justify-center flex'>Login as a User</Link>
-          <Link to='adminlogin' className='w-3/4 border blue p-2 rounded-md items-center justify-center flex'>Login as a Admin</Link>
-          <Link to='usersignup' className='w-3/4 border orange p-2 rounded-md items-center justify-center flex'>Signup as a User</Link>
-          <Link to='adminsignup' className='w-3/4 border blue p-2 rounded-md items-center justify-center flex'>Signup as a Admin</Link>
+          <Link to='userlogin' className='w-3/4 border orange p-3 rounded-md items-center justify-center flex'>Login as a User</Link>
+          <Link to='adminlogin' className='w-3/4 border blue p-3 rounded-md items-center justify-center flex'>Login as a Admin</Link>
         </div>
       </div>
       <div className='w-full flex flex-col items-center p-10 gap-10'>

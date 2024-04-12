@@ -235,7 +235,7 @@ app.get('/admins/:email', async (req, res) => {
 });
 app.get('/users', async (req, res) => {
     try {
-        const user = await User.find({  });
+        const user = await User.find(req.body);
         if (user) {
             res.json(user);
         } else {

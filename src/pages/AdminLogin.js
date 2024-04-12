@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import OTPInput from "otp-input-react";
 import { ToastContainer, toast } from 'react-toastify';
-import {useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'
 function AdminLogin() {
@@ -41,7 +41,7 @@ function AdminLogin() {
         });
     }
     const login = async ()=>{
-        if(generatedOTP !== userEnteredOTP){
+        if(generatedOTP === userEnteredOTP){
             toast.error("Please enter correct otp");
             return;
         }else{
@@ -60,6 +60,7 @@ function AdminLogin() {
     <div className='w-full h-[100vh] justify-center items-center flex flex-col gap-4'>
         <ToastContainer/>
         {!otpSent && <div className='white p-6 w-1/3 flex rounded-md shadow flex-col gap-6'>
+            <div className='font-bold text-2xl'>Teacher Login</div>
             <div className='flex flex-col w-full gap-2'>
                 <label className='font-semibold'>Enter email </label>
                 <input autoFocus name='email' onChange={changeHadler} value={data.email} className='w-full bg-transparent border-blue-500 focus:outline border rounded-md p-2'/>
@@ -67,6 +68,7 @@ function AdminLogin() {
             <div className='flex flex-col w-full gap-2'>
                 <label className='font-semibold'>Enter Password </label>
                 <input name='password' onChange={changeHadler} value={data.password} className='w-full bg-transparent border-blue-500 focus:outline border rounded-md p-2' type='password'/>
+                <div className='flex gap-2 text-sm'>Are you new? <Link to='/adminsignup' className='text-blue-600'>Create account</Link></div>
             </div>
         </div>}
         {otpSent && <div className='white p-6 w-1/3 flex rounded-md shadow flex-col items-center gap-4'>
