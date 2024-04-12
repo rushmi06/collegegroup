@@ -23,14 +23,15 @@ function AdminLogin() {
         return OTP;
     }
     const sendOtp = async ()=>{
-        if(!data.email.includes("@khitguntur.ac.in")){
-            toast.error("Enter the college email id ");
-            return;
-        }
+        // if(!data.email.includes("@khitguntur.ac.in")){
+        //     toast.error("Enter the college email id ");
+        //     return;
+        // }
         await axios.get(`http://localhost:3030/admins/${data.email}`).then((result) => {
             if(result.data.password === data.password){
                 axios.post('http://localhost:3030/sendOTP', { to: data.email, subject: 'User login otp', otp: generateOtp() }); 
                 setOtpSent(true);
+                localStorage.setItem("adminName",result.data.name);
                 toast.success("OTP sent successfully");
             }else{
                 toast.error("Enter correct password")

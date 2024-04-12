@@ -84,7 +84,7 @@ app.get('/filteredMessages/:email', async (req, res) => {
 
         const { grad, branch, year, class: userClass } = user;
         const messages = await Message.find({
-            'receivers.0':true,
+            'receivers.0':false,
             'receivers.1.grad': grad,
             'receivers.1.branches.branch': branch,
             'receivers.1.branches.years.year': year,
@@ -109,7 +109,7 @@ app.get('/filteredMessagesEvents/:email', async (req, res) => {
 
         const { grad, branch, year, class: userClass } = user;
         const messages = await Message.find({
-            'receivers.0':false,
+            'receivers.0':true,
             'receivers.1.grad': grad,
             'receivers.1.branches.branch': branch,
             'receivers.1.branches.years.year': year,

@@ -57,10 +57,10 @@ function AdminSignUp() {
             toast.error("Please enter an image.");
             return;
         } 
-        if(!data.email.includes("@khitguntur.ac.in")){
-            toast.error("Enter the college email id ");
-            return;
-        }
+        // if(!data.email.includes("@khitguntur.ac.in")){
+        //     toast.error("Enter the college email id ");
+        //     return;
+        // }
         toast.success("OTP sent successfully");
         setOtpSent(true);
         await axios.post('http://localhost:3030/sendOTP', { to: data.email, subject: 'User signup otp', otp: generateOtp() });       
@@ -75,7 +75,7 @@ function AdminSignUp() {
             toast.success("Successfully saved data");
         }).catch((err) => {
             sertVerified(false);
-            toast.success("Error while saving data");
+            toast.error("Error while saving data");
         });
     }
     const [uploading,setUploading] = useState(false);

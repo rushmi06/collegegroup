@@ -5,6 +5,7 @@ import PDFMessage from './PDFMessage';
 import AudioMessage from './AudioMessage';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { storage } from '../firebase-config';
+import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios'
 function AdminSendFrame() {
   const [message, setMessage] = useState('');
@@ -62,12 +63,16 @@ function AdminSendFrame() {
 
   const send = async (type, body, title) => {
     if (messageRef.current && message.length === 0 && type !== 'pdf') return;
+    if(!JSON.parse(localStorage.getItem('recievers'))){
+      toast.error("Please set the recievers");
+      return;
+    }
     const newMessage = {
       type: type,
       title:title,
       body: body,
       date: (new Date()).toISOString(),
-      sender: 'Shaik Shoheb',
+      sender: localStorage.getItem("adminName"),
       receivers: JSON.parse(localStorage.getItem('recievers'))
     };
     setMessages([...messages, newMessage]);
@@ -91,6 +96,7 @@ function AdminSendFrame() {
 
   return (
     <div className='h-full w-full'>
+    <ToastContainer />
       {!uploading && (
         <div className='h-full white w-full relative p-5 items-center flex-col gap-4 overflow-scroll pb-12'>
           {messages.map((mssg, index) => (
