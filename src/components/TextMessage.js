@@ -30,7 +30,7 @@ function TextMessage({mssg,messageDeleted}) {
           <div className='absolute right-1 top-1 text-sm hover:bg-gray-200 hover:cursor-pointer p-1 rounded-md' onClick={()=>setShowOptions(!showOptions)}><BsThreeDotsVertical /></div>
           {showOptions && <div className='absolute right-1 top-3 bg-white rounded-md text-sm'>
             <div className='hover:bg-gray-300 p-2 px-4 hover:cursor-pointer flex justify-center items-center gap-4' onClick={()=>copyMessage()}><FaRegCopy  className='text-xl'/>Copy</div>
-            <div className='hover:bg-gray-300 p-2 px-4 hover:cursor-pointer flex justify-center items-center gap-4' onClick={()=>deleteMessage()}><MdDeleteOutline className='text-red-500 text-xl' />Delete</div>
+            {localStorage.getItem("adminEmail") && <div className='hover:bg-gray-300 p-2 px-4 hover:cursor-pointer flex justify-center items-center gap-4' onClick={()=>deleteMessage()}><MdDeleteOutline className='text-red-500 text-xl' />Delete</div>}
           </div>}
         </div>
         <div className='text-xs'>Send by : {mssg.sender}</div>
