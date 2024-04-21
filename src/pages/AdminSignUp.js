@@ -73,6 +73,7 @@ function AdminSignUp() {
         await axios.post('http://localhost:3030/admins',data).then((result) => {
             sertVerified(true);
             toast.success("Successfully saved data");
+            localStorage.clear();
         }).catch((err) => {
             sertVerified(false);
             toast.error("Error while saving data");
@@ -119,7 +120,7 @@ function AdminSignUp() {
         {uploading && <span class="loader"></span>}
         {!otpSent && !uploading && 
             <div className='w-4/5 flex white flex-col p-2 gap-2 rounded-md shadow'>
-                <div className='font-bold text-2xl text-center '>Teacher Resgitration</div>
+                <div className='font-bold text-2xl text-center '>Staff Resgitration</div>
                 <div className='p-4 w-full flex '>
             
                 <div className='w-1/3 flex justify-center items-center flex-col gap-4'>

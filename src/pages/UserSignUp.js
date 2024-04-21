@@ -85,6 +85,7 @@ function UserSignUp() {
         await axios.post('http://localhost:3030/users',data).then((result) => {
             sertVerified(true);
             toast.success("Successfully saved data");
+            localStorage.clear();
         }).catch((err) => {
             sertVerified(false);
             toast.success("Error while saving data");

@@ -46,6 +46,7 @@ function AdminLogin() {
             return;
         }else{
             toast.success("Logged in successfully")
+            localStorage.clear();
             localStorage.setItem('adminEmail',data.email);
             navigate('/chat');
         }
@@ -60,7 +61,7 @@ function AdminLogin() {
     <div className='w-full h-[100vh] justify-center items-center flex flex-col gap-4'>
         <ToastContainer/>
         {!otpSent && <div className='white p-6 w-1/3 flex rounded-md shadow flex-col gap-6'>
-            <div className='font-bold text-2xl'>Teacher Login</div>
+            <div className='font-bold text-2xl'>Staff Login</div>
             <div className='flex flex-col w-full gap-2'>
                 <label className='font-semibold'>Enter email </label>
                 <input autoFocus name='email' onChange={changeHadler} value={data.email} className='w-full bg-transparent border-blue-500 focus:outline border rounded-md p-2'/>

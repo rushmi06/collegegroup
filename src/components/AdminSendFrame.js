@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { FaPaperclip, FaMicrophone } from 'react-icons/fa';
+import { FaPaperclip } from 'react-icons/fa';
+import { AudioRecorder } from 'react-audio-voice-recorder';
 import TextMessage from './TextMessage';
 import PDFMessage from './PDFMessage';
 import AudioMessage from './AudioMessage';
@@ -13,14 +14,17 @@ function AdminSendFrame() {
   const messagesEndRef = useRef(null);
   const [messages, setMessages] = useState([]);
   const [uploading, setUploading] = useState(false);
+  let fetchData = async ()=>{
+    await axios.get('http://localhost:3030/messages').then((result) => {
+      setMessages(result.data);
+    })
+  }
   useEffect(()=>{
-    let fetchData = async ()=>{
-      await axios.get('http://localhost:3030/messages').then((result) => {
-        setMessages(result.data);
-      })
-    }
     fetchData();
   },[]);
+  const messageDeleted = ()=>{
+    fetchData();
+  }
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -72,7 +76,7 @@ function AdminSendFrame() {
       title:title,
       body: body,
       date: (new Date()).toISOString(),
-      sender: localStorage.getItem("adminName"),
+      sender: localStorage.getItem("adminEmail"),
       receivers: JSON.parse(localStorage.getItem('recievers'))
     };
     setMessages([...messages, newMessage]);
@@ -81,10 +85,16 @@ function AdminSendFrame() {
       messageRef.current.focus();
     }
     await axios.post('http://localhost:3030/messages',newMessage);
+    fetchData();
   };
   
 
-  const clear = () => {
+  const clear = async() => {
+    await axios.delete('http://localhost:3030/messages').then((result) => {
+      toast.success("Successfully deleted all messages");
+    }).catch((err) => {
+      toast.error("Error while deleting");
+    });
     setMessages([]);
   };
 
@@ -93,7 +103,16 @@ function AdminSendFrame() {
       send('text', message);
     }
   };
-
+  const addAudioElement = (blob) => {
+    const url = URL.createObjectURL(blob);
+    const audio = document.createElement("audio");
+    audio.src = url;
+    console.log(audio)
+    console.log(url);
+    audio.controls = true;
+    document.body.appendChild(audio);
+  };
+  
   return (
     <div className='h-full w-full'>
     <ToastContainer />
@@ -101,8 +120,8 @@ function AdminSendFrame() {
         <div className='h-full white w-full relative p-5 items-center flex-col gap-4 overflow-scroll pb-12'>
           {messages.map((mssg, index) => (
             <div key={index}>
-              {mssg.type === 'text' && <TextMessage mssg={mssg} />}
-              {mssg.type === 'pdf' && <PDFMessage mssg={mssg} />}
+              {mssg.type === 'text' && <TextMessage mssg={mssg} messageDeleted={messageDeleted}/>}
+              {mssg.type === 'pdf' && <PDFMessage mssg={mssg} messageDeleted={messageDeleted}/>}
               {mssg.type === 'audio' && <AudioMessage mssg={mssg} />}
             </div>
           ))}
@@ -124,8 +143,16 @@ function AdminSendFrame() {
               className='p-2 bg-transparent w-9/12 focus:outline-none'
               placeholder='Enter message'
             />
-            <div className='text-xl text-black'>
-              <FaMicrophone />
+            <div className='text-xl text-black p-2'>
+              <AudioRecorder 
+                  onRecordingComplete={addAudioElement}
+                  audioTrackConstraints={{
+                    noiseSuppression: true,
+                    echoCancellation: true,
+                  }} 
+                  downloadOnSavePress={true}
+                  downloadFileExtension="webm"
+                />
             </div>
             <div onClick={() => send('text', message)} className='text-md hover:cursor-pointer hover:bg-white p-1 rounded-md hover:text-black'>
               SEND
@@ -137,6 +164,7 @@ function AdminSendFrame() {
         </div>
       )}
       {uploading && <div className=''>Uploading please wait</div>}
+      
     </div>
   );
 }

@@ -1,38 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function AdminSideFrame() {
     
-    const [isEvent, setIsEvent] = useState(true);
+    const [isEvent, setIsEvent] = useState(false);
     const [graduation, setGraduation] = useState([
-        { grad: 'Under-graduation', checked: true }
+        { grad: 'Under-graduation', checked: false }
     ]);
     const [branches, setBranches] = useState([
-        { branch: 'Computer Science and Engineering', checked: true }
+        { branch: 'Computer Science and Engineering', checked: false }
     ]);
     const [years, setYears] = useState([
-        { year: '1st', checked: true },
-        { year: '2nd', checked: true },
-        { year: '3rd', checked: true },
-        { year: '4th', checked: true }
+        { year: '1st', checked: false },
+        { year: '2nd', checked: false },
+        { year: '3rd', checked: false },
+        { year: '4th', checked: false }
     ]);
 
     const [classes, setClasses] = useState([[
-        { class: 'A', checked: true },
-        { class: 'B', checked: true },
-        { class: 'C', checked: true }
+        { class: 'A', checked: false },
+        { class: 'B', checked: false },
+        { class: 'C', checked: false }
     ],[
-        { class: 'A', checked: true },
-        { class: 'B', checked: true },
-        { class: 'C', checked: true }
+        { class: 'A', checked: false },
+        { class: 'B', checked: false },
+        { class: 'C', checked: false }
     ],[
-        { class: 'A', checked: true },
-        { class: 'B', checked: true },
-        { class: 'C', checked: true }
+        { class: 'A', checked: false },
+        { class: 'B', checked: false },
+        { class: 'C', checked: false }
     ],[
-        { class: 'A', checked: true },
-        { class: 'B', checked: true },
-        { class: 'C', checked: true }
+        { class: 'A', checked: false },
+        { class: 'B', checked: false },
+        { class: 'C', checked: false }
     ]]);
 
     // useEffect(() => {
@@ -40,10 +40,10 @@ function AdminSideFrame() {
     //     const localStorageData = JSON.parse(localStorage.getItem('recievers'));
     //     if (localStorageData) {
     //         setIsEvent(localStorageData[0]);
-    //         setGraduation(localStorageData.slice(1).map(gradObj => ({ grad: gradObj.grad, checked: true })));
-    //         setBranches(localStorageData.slice(1).flatMap(gradObj => gradObj.branches.map(branchObj => ({ branch: branchObj.branch, checked: true }))));
-    //         setYears(localStorageData.slice(1).flatMap(gradObj => gradObj.branches.flatMap(branchObj => branchObj.years.map(yearObj => ({ year: yearObj.year, checked: true })))));
-    //         setClasses(localStorageData.slice(1).flatMap(gradObj => gradObj.branches.flatMap(branchObj => branchObj.years.flatMap(yearObj => yearObj.classes.map(cls => ({ class: cls, checked: true }))))));
+    //         setGraduation(localStorageData.slice(1).map(gradObj => ({ grad: gradObj.grad, checked: false })));
+    //         setBranches(localStorageData.slice(1).flatMap(gradObj => gradObj.branches.map(branchObj => ({ branch: branchObj.branch, checked: false }))));
+    //         setYears(localStorageData.slice(1).flatMap(gradObj => gradObj.branches.flatMap(branchObj => branchObj.years.map(yearObj => ({ year: yearObj.year, checked: false })))));
+    //         setClasses(localStorageData.slice(1).flatMap(gradObj => gradObj.branches.flatMap(branchObj => branchObj.years.flatMap(yearObj => yearObj.classes.map(cls => ({ class: cls, checked: false }))))));
     //     }
     // }, []);
 

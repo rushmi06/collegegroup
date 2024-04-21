@@ -44,7 +44,8 @@ function UserLogin() {
             toast.error("Please enter correct otp");
             return;
         }else{
-            toast.success("Logged in successfully")
+            toast.success("Logged in successfully");
+            localStorage.clear();
             localStorage.setItem('userEmail',data.email);
             navigate('/userchat');
         }

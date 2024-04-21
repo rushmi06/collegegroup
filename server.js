@@ -259,6 +259,35 @@ app.get('/admins', async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+app.delete('/messages', async (req, res) => {
+    try {
+        // Use deleteMany to delete all documents in the Message collection
+        const result = await Message.deleteMany();
+
+        res.json({ message: `${result.deletedCount} messages deleted successfully` });
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ message: "Server Error" });
+    }
+});
+app.delete('/messages/:id', async (req, res) => {
+    try {
+        const messageId = req.params.id;
+
+        // Use deleteOne to delete the message with the specified ID
+        const result = await Message.deleteOne({ _id: messageId });
+
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ message: "Message not found" });
+        }
+
+        res.json({ message: "Message deleted successfully" });
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ message: "Server Error" });
+    }
+});
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
