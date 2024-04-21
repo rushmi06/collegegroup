@@ -30,18 +30,23 @@ function StudentData() {
         setFilteredData(filteredData);
     };
     let onChnageFilters = (e)=>{
-        setFilters({...filters,[e.target.name]:e.target.value})
+        setFilters(previous =>({...previous,[e.target.name]:e.target.value}))
     }
-    let search = ()=>{
-        console.log(filters)
-        let fetchData = async ()=>{
-            await axios.get('http://localhost:3030/users',filters).then((result) => {
-                setData(result.data);
-                setFilteredData(result.data);
-            })
+    let search = async () => {
+        try {
+            console.log(filters); 
+    
+            const result = await axios.get('http://localhost:3030/users', {
+                params: filters // Use 'params' option to send query parameters
+            });
+    
+            console.log(result.data);
+            setFilteredData(result.data);
+        } catch (error) {
+            console.error("Error:", error);
+            // Handle error if necessary
         }
-        fetchData();
-    }
+    };
     
   return (
     <div className='flex p-4'>
