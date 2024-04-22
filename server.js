@@ -41,37 +41,6 @@ app.get('/messages', async (req, res) => {
     }
 });
 
-// app.get('/filteredMessages', async (req, res) => {
-//     try {
-//         console.log(req.body)
-//         const messages = await Message.find({});
-//         let filteredMessages = [];
-//         for(let i = 0;i<messages.length;i++){
-//             if(messages[i].receivers[0]){
-//                 continue;
-//             }
-//             let recievers = messages[i].receivers[1];
-//             if(recievers.grad === req.body.grad ){
-//                 if(recievers.branches[0].branch === req.body.branch){
-//                     for(let j = 0;j<recievers.branches[0].years.length;j++){
-//                         if(recievers.branches[0].years[j].year === req.body.year){
-//                             if(recievers.branches[0].years[j].classes.includes(req.body.class)){
-//                                 filteredMessages.push(messages[i]);
-//                                 break;
-//                             }
-//                         }
-//                     }
-//                 }
-//             }
-
-//         }
-//         res.json(filteredMessages); // Send the messages as JSON response
-//     } catch (error) {
-//         console.error("Error fetching messages:", error);
-//         res.status(500).json({ message: "Internal server error" });
-//     }
-// });
-
 app.get('/filteredMessages/:email', async (req, res) => {
     try {
         const { email } = req.params;
@@ -123,36 +92,6 @@ app.get('/filteredMessagesEvents/:email', async (req, res) => {
     }
 });
 
-// app.get('/filteredMessagesEvents', async (req, res) => {
-//     try {
-//         const messages = await Message.find({});
-//         let filteredMessages = [];
-//         for(let i = 0;i<messages.length;i++){
-//             if(!messages[i].receivers[0]){
-//                 continue;
-//             }
-//             let recievers = messages[i].receivers[1];
-//             if(recievers.grad === req.body.grad ){
-//                 if(recievers.branches[0].branch === req.body.branch){
-//                     for(let j = 0;j<recievers.branches[0].years.length;j++){
-//                         if(recievers.branches[0].years[j].year === req.body.year){
-//                             if(recievers.branches[0].years[j].classes.includes(req.body.class)){
-//                                 filteredMessages.push(messages[i]);
-//                                 break;
-//                             }
-//                         }
-//                     }
-//                 }
-//             }
-
-//         }
-//         res.json(filteredMessages); // Send the messages as JSON response
-//     } catch (error) {
-//         console.error("Error fetching messages:", error);
-//         res.status(500).json({ message: "Internal server error" });
-//     }
-// });
-
 
 app.post('/users', async (req, res) => {
     try {
@@ -183,7 +122,7 @@ app.post('/sendOTP', async (req, res) => {
             secure: false,
             auth: {
                 user: '208x1a05a0@khitguntur.ac.in',
-                pass: 'xvqa qxlk uqcr ezou'
+                pass: 'ipdc ddjw zmwq zvut'
             },
             tls: {
                 rejectUnauthorized: false

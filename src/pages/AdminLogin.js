@@ -41,7 +41,7 @@ function AdminLogin() {
         });
     }
     const login = async ()=>{
-        if(generatedOTP === userEnteredOTP){
+        if(generatedOTP !== userEnteredOTP){
             toast.error("Please enter correct otp");
             return;
         }else{
